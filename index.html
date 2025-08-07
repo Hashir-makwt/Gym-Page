@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       * {
         box-sizing: border-box;
@@ -33,15 +34,22 @@
       }
       
       header {
-        position: relative;
+        position: fixed;
         width: 100%;
         padding: 20px 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.9);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+      
+      header.scrolled {
+        padding: 15px 0;
+        background-color: rgba(0, 0, 0, 0.95);
       }
       
       .left {
@@ -54,6 +62,11 @@
         width: 60px;
         filter: invert(100%);
         margin-right: 15px;
+        transition: all 0.3s ease;
+      }
+      
+      .left:hover img {
+        transform: rotate(15deg);
       }
       
       .left div {
@@ -61,6 +74,11 @@
         font-weight: 700;
         color: #fff;
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+      }
+      
+      .left:hover div {
+        color: #ff6b6b;
       }
       
       .mid {
@@ -83,10 +101,12 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        display: flex;
+        justify-content: center;
       }
       
       .navbar li {
-        display: inline-block;
+        position: relative;
       }
       
       .navbar li a {
@@ -99,6 +119,7 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        display: block;
       }
       
       .navbar li a:before {
@@ -135,6 +156,22 @@
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .btn:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
       }
       
       .btn:hover {
@@ -143,6 +180,94 @@
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
       }
       
+      .btn:focus:not(:active)::after {
+        animation: ripple 1s ease-out;
+      }
+      
+      @keyframes ripple {
+        0% {
+          transform: scale(0, 0);
+          opacity: 1;
+        }
+        20% {
+          transform: scale(25, 25);
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: scale(40, 40);
+        }
+      }
+      
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero-content {
+        max-width: 800px;
+        z-index: 1;
+        animation: fadeInUp 1s ease-out;
+      }
+      
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        color: #ff6b6b;
+      }
+      
+      .hero p {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+      
+      .hero-btns {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      
+      .hero-btn {
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+      
+      .primary-btn {
+        background-color: #ff6b6b;
+        border: 2px solid #ff6b6b;
+      }
+      
+      .secondary-btn {
+        background-color: transparent;
+        border: 2px solid white;
+      }
+      
+      .hero-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+      
+      .primary-btn:hover {
+        background-color: #ff5252;
+        border-color: #ff5252;
+      }
+      
+      .secondary-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      /* Container Section */
       .container {
         background-color: rgba(0, 0, 0, 0.7);
         margin: 50px auto;
@@ -215,62 +340,128 @@
         box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
       }
       
+      /* Hamburger Menu */
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+      }
+      
+      .hamburger div {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+        transition: all 0.3s ease;
+      }
+      
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+      
+      /* Mobile Menu */
+      .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.5s ease;
+      }
+      
+      .mobile-menu.active {
+        right: 0;
+      }
+      
+      .mobile-menu li {
+        margin: 20px 0;
+      }
+      
+      .mobile-menu li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+      
+      .mobile-menu li a:hover {
+        color: #ff6b6b;
+      }
+      
+      .mobile-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 30px;
+      }
+      
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
       /* Responsive Design */
       @media (max-width: 992px) {
-        header {
-          flex-direction: column;
-          padding: 15px 0;
+        .hero h1 {
+          font-size: 2.8rem;
         }
         
-        .left, .mid, .right {
-          width: 100%;
-          justify-content: center;
-          padding: 10px 0;
-        }
-        
-        .left {
-          margin-bottom: 10px;
-        }
-        
-        .right {
-          margin-top: 10px;
-        }
-        
-        .navbar li a {
-          padding: 10px 12px;
-          font-size: 1rem;
+        .hero p {
+          font-size: 1.3rem;
         }
       }
       
       @media (max-width: 768px) {
-        .navbar li {
-          display: block;
-          text-align: center;
-          margin: 5px 0;
-        }
-        
-        .navbar li a {
-          display: block;
-          padding: 8px;
+        .navbar {
+          display: none;
         }
         
         .right {
+          display: none;
+        }
+        
+        .hamburger {
+          display: block;
+          padding-right: 30px;
+        }
+        
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        
+        .hero p {
+          font-size: 1.2rem;
+        }
+        
+        .hero-btns {
           flex-direction: column;
           align-items: center;
         }
         
-        .btn {
-          margin: 5px 0;
-          width: 200px;
-        }
-        
-        .container {
-          padding: 30px 20px;
-          margin: 30px auto;
-        }
-        
-        .container h1 {
-          font-size: 1.5rem;
+        .hero-btn {
+          width: 80%;
         }
       }
       
@@ -283,20 +474,22 @@
           width: 50px;
         }
         
-        .container {
-          width: 95%;
-          padding: 25px 15px;
+        .hero h1 {
+          font-size: 2rem;
         }
         
-        .form-group input {
-          padding: 10px;
-          margin: 10px 0;
+        .hero p {
+          font-size: 1rem;
+        }
+        
+        .mobile-menu {
+          width: 80%;
         }
       }
     </style>
   </head>
   <body>
-    <header>
+    <header id="header">
       <!-- left for logo -->
       <div class="left">
         <img src="file.png" alt="Logo" />
@@ -320,7 +513,42 @@
         <button class="btn">Call Us Now</button>
         <button class="btn">Email Us</button>
       </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="https://karve.club/schedule/kensington/" target="_blank">Classes</a></li>
+        <li><a href="https://karve.club/schedule/chelsea/" target="_blank">Schedule</a></li>
+        <li><a href="https://karve.club/location/" target="_blank">Membership</a></li>
+      </ul>
+      <div class="mobile-btns">
+        <button class="btn">Call Us Now</button>
+        <button class="btn">Email Us</button>
+      </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Transform Your Body, Elevate Your Life</h1>
+        <p>Join the ultimate fitness experience with personalized training programs and world-class facilities</p>
+        <div class="hero-btns">
+          <button class="hero-btn primary-btn">Start Your Journey</button>
+          <button class="hero-btn secondary-btn">Learn More</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Form Section -->
     <div class="container">
         <h1>The Ultimate Destination for Fitness Enthusiasts</h1>
         <form action="nonaction.php">
@@ -345,5 +573,63 @@
             <button class="btn" type="submit">Submit</button>
         </form>
     </div>
+    
+    <script>
+      // Hamburger Menu Toggle
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+      
+      // Close mobile menu when clicking on a link
+      const mobileLinks = document.querySelectorAll('.mobile-menu a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('active');
+        });
+      });
+      
+      // Header scroll effect
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+      
+      // Button ripple effect
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const x = e.clientX - e.target.getBoundingClientRect().left;
+          const y = e.clientY - e.target.getBoundingClientRect().top;
+          
+          const ripple = document.createElement('span');
+          ripple.classList.add('ripple');
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 1000);
+        });
+      });
+      
+      // Animation on scroll
+      window.addEventListener('load', () => {
+        const heroContent = document.querySelector('.hero-content');
+        heroContent.style.animation = 'fadeInUp 1s ease-out';
+      });
+    </script>
   </body>
 </html>
